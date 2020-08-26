@@ -1,8 +1,9 @@
 import React from 'react';
+import Timer from './components/Timer';
 
 function App() {
   return (
-    <h1>Hello world!</h1>
+    <Timer />
   );
 }
 

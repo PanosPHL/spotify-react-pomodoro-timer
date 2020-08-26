@@ -1,1 +1,299 @@
-/* TODO Add site wide styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-size: 16px;
+}
+
+span::selection {
+    color: none;
+    background-color: none;
+}
+
+.button::selection, .minute-button::selection {
+    color: none;
+    background-color: none;
+}
+
+.selected-button {
+    filter: brightness(70%);
+}
+
+#center-screen {
+    display: block;
+    position: relative;
+    margin: auto;
+    width: 800px;
+}
+
+#top-buttons {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 0em;
+}
+
+#top-buttons:hover {
+    cursor: default;
+}
+
+#pomodoro-button {
+    background-color: #075F91;
+
+    color: #f2f2f2;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5em;
+
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    border-right: 1px solid #000000;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    padding: 6px;
+}
+
+#pomodoro-button:active {
+    filter: brightness(70%);
+}
+
+#short-break-button {
+    background-color: #075F91;
+
+    color: #f2f2f2;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5em;
+
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+
+    padding: 6px;
+}
+
+#short-break-button:active {
+    filter: brightness(70%);
+}
+
+#long-break-button {
+    background-color: #075F91;
+
+    color: #f2f2f2;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5em;
+
+    border-left: 1px solid #000000;
+    border-bottom: 2px solid #000000;
+    border-top: 2px solid #000000;
+    border-right: 2px solid #000000;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    padding: 6px;
+}
+
+#long-break-button:active {
+    filter: brightness(70%);
+}
+
+#timer-container {
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 800px;
+}
+
+#timer {
+    margin: 120px auto;
+
+    font-size: 7em;
+    font-family: "Montserrat", sans-serif;
+
+    text-align: center;
+    width: 300px;
+}
+
+.minute-button:hover {
+    cursor: default;
+}
+
+.minute-button:active {
+    filter: brightness(70%);
+}
+
+.minute-button {
+    margin: 155px auto 0 auto;
+    width: 75px;
+    height: 75px;
+    text-align: center;
+    display: inline-block;
+
+    background-color: grey;
+    color: white;
+}
+
+#subtract-minute {
+    display: block;
+    font-size: 60px;
+    transform: scale(1.5, 1);
+}
+
+#add-minute {
+    font-size: 66px;
+}
+
+#buttons {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+#start-button {
+    width: 200px;
+    height: 46px;
+
+    color: #f2f2f2;
+    background-color: #00cc44;
+
+    font-family: "Raleway", sans-serif;
+    font-size: 2.25em;
+    text-align: center;
+
+    border: 2px solid #00802b;
+    border-radius: 5px;
+}
+
+#start-button:hover {
+    width: 220px;
+    height: auto;
+    font-size: 2.5em;
+
+    cursor: default;
+}
+
+#start-button:active {
+    color: #cccccc;
+    background-color: #006622;
+
+    border: 2px solid #004d1a;
+}
+
+#stop-button {
+    width: 200px;
+    height: 46px;
+
+    color: #f2f2f2;
+    background-color: #e60000;
+
+    font-family: "Raleway", sans-serif;
+    font-size: 2.25em;
+    text-align: center;
+
+    border: 2px solid #800000;
+    border-radius: 5px;
+}
+
+#stop-button:hover {
+    width: 220px;
+    height: auto;
+    font-size: 2.5em;
+
+    cursor: default;
+}
+
+#stop-button:active {
+    color: #cccccc;
+    background-color: #b30000;
+
+    border: 2px solid #4d0000;
+}
+
+#reset-button {
+    width: 200px;
+    height: 46px;
+
+    color: #f2f2f2;
+    background-color: #808080;
+
+    font-family: "Raleway", sans-serif;
+    font-size: 2.25em;
+    text-align: center;
+
+    border: 2px solid #4d4d4d;
+    border-radius: 5px;
+}
+
+#reset-button:hover {
+    width: 220px;
+    height: auto;
+    font-size: 2.5em;
+
+    cursor: default;
+}
+
+#reset-button:active {
+    color: #cccccc;
+    background-color: #666666;
+
+    border: 2px solid #1a1a1a;
+}
+
+#audio-upload {
+    background-color: white;
+    border: 5px dashed #CCC;
+    border-radius: 25px;
+    width: 450px;
+    height: 160px;
+    margin: 50px auto 25px 75px;
+}
+
+.dragHover {
+    filter: brightness(70%);
+}
+
+#upload-header {
+    text-align: center;
+    margin: 0.75em auto 0 auto;
+    width: 350px;
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    color: #525252;
+}
+
+#audio-file {
+    display: block;
+    margin: 1em 0 0 3em;
+    font-family: "Raleway", sans-serif;
+    color: #525252;
+}
+
+#audio-file:focus {
+    outline: none;
+}
+
+#upload-image {
+    display: block;
+    opacity: 30%;
+    width: 50px;
+    margin: 0 0 0 0;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+label {
+    margin-left: 36%;
+    border: 1px solid #c9c9c9;
+    padding: 10px;
+    border-radius: 4px;
+    background: linear-gradient(#fff1eb, #fcf7f5);
+    max-width: 500px;
+    font-family: "Raleway", sans-serif;
+}
+
+label:active {
+    filter: brightness(70%);
+}
