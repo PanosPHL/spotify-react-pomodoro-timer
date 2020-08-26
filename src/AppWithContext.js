@@ -28,7 +28,6 @@ class AppWithContext extends React.Component {
     }
 
     componentDidMount() {
-        // this.startTimer();
     }
 
     startTimer = () => {
@@ -40,7 +39,7 @@ class AppWithContext extends React.Component {
 
     stopTimer = () => {
         this.setState({ started: false }, () => {
-        this.clearTimer();
+            this.clearTimer();
         });
     }
 
@@ -82,8 +81,13 @@ class AppWithContext extends React.Component {
 
         this.interval = setInterval(() => {
             if (this.state.time === 0) {
-                this.stopTimer();
-                return;
+                try {
+                    this.state.audio.file.play();
+                    this.stopTimer();
+                    return;
+                } catch (e) {
+                    alert('There was an issue playing your audio file! Please provide one.')
+                }
             }
 
             this.setState({ time: this.state.time - 1 });
@@ -114,22 +118,22 @@ class AppWithContext extends React.Component {
         }
     }
 
-    updateAudio(file) {
+    updateAudio = (file) => {
         let url = URL.createObjectURL(file);
-        this.setState({ audio: url });
+        let audio = new Audio(url);
+        this.setState({ audio: { file: audio, updateAudio: this.updateAudio }});
     }
 
     render() {
         const timeState = Object.assign({}, this.state);
         delete timeState.audio;
 
-
         return (
-       <TimerContext.Provider value={timeState}>
-           <AudioContext.Provider value={this.state.audio}>
-           <App />
-           </AudioContext.Provider>
-       </TimerContext.Provider>
+            <TimerContext.Provider value={timeState}>
+                <AudioContext.Provider value={this.state.audio}>
+                    <App />
+                </AudioContext.Provider>
+            </TimerContext.Provider>
         )
     }
 }
