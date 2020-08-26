@@ -14,12 +14,14 @@ class AppWithContext extends React.Component {
             stopTimer: this.stopTimer,
             resetTimer: this.resetTimer,
             decrementTimer: this.decrementTimer,
-            switchTimers: this.switchTimers
+            switchTimers: this.switchTimers,
+            addMinute: this.addMinute,
+            subtractMinute: this.subtractMinute
         }
     }
 
     componentDidMount() {
-        this.startTimer();
+        // this.startTimer();
     }
 
     startTimer = () => {
@@ -33,6 +35,18 @@ class AppWithContext extends React.Component {
         this.setState({ started: false }, () => {
         this.clearTimer();
         });
+    }
+
+    addMinute = () => {
+        this.setState({ time: this.state.time + 60 });
+    }
+
+    subtractMinute = () => {
+        if (this.state.time < 60) {
+            this.setState({ time: 0 });
+            return;
+        }
+        this.setState({ time: this.state.time - 60 });
     }
 
     resetTimer = () => {

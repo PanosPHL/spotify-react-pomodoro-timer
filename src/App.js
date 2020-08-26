@@ -1,9 +1,13 @@
 import React from 'react';
-import Timer from './components/Timer';
+import TimerAndButtons from './components/TimerAndButtons';
+import TopButtons from './components/TopButtons';
 
 function App() {
   return (
-    <Timer />
+    <div id='center-screen'>
+      <TopButtons />
+      <TimerAndButtons />
+    </div>
   );
 }
 
