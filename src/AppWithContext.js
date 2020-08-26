@@ -1,5 +1,6 @@
 import React from 'react';
 import TimerContext from './contexts/TimerContext';
+import AudioContext from './contexts/AudioContext';
 import App from './App';
 
 class AppWithContext extends React.Component {
@@ -9,14 +10,20 @@ class AppWithContext extends React.Component {
         this.state = {
             started: false,
             timerType: "pomodoro",
-            time: 10,
-            startTimer: this.startTimer,
-            stopTimer: this.stopTimer,
-            resetTimer: this.resetTimer,
-            decrementTimer: this.decrementTimer,
-            switchTimers: this.switchTimers,
-            addMinute: this.addMinute,
-            subtractMinute: this.subtractMinute
+            time: 1500,
+            timerMethods: {
+                startTimer: this.startTimer,
+                stopTimer: this.stopTimer,
+                resetTimer: this.resetTimer,
+                decrementTimer: this.decrementTimer,
+                switchTimers: this.switchTimers,
+                addMinute: this.addMinute,
+                subtractMinute: this.subtractMinute
+            },
+            audio: {
+                file: null,
+                updateAudio: this.updateAudio
+            }
         }
     }
 
@@ -107,10 +114,21 @@ class AppWithContext extends React.Component {
         }
     }
 
+    updateAudio(file) {
+        let url = URL.createObjectURL(file);
+        this.setState({ audio: url });
+    }
+
     render() {
+        const timeState = Object.assign({}, this.state);
+        delete timeState.audio;
+
+
         return (
-       <TimerContext.Provider value={this.state}>
+       <TimerContext.Provider value={timeState}>
+           <AudioContext.Provider value={this.state.audio}>
            <App />
+           </AudioContext.Provider>
        </TimerContext.Provider>
         )
     }

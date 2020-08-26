@@ -4,7 +4,7 @@ import TimerContext from '../contexts/TimerContext';
 const TopButtons = () => {
     return (
         <TimerContext.Consumer>
-            {({ switchTimers, started }) => {
+            {({ timerMethods: { switchTimers }, started }) => {
                 function handleClick (event) {
                     if (!/button$/.test(event.target.id) || started) {
                         return;
@@ -13,7 +13,10 @@ const TopButtons = () => {
                     const buttons = document.getElementsByClassName('button');
 
                     for (let i = 0; i < buttons.length; i++) {
-                        buttons[i].classList.remove('selected-button');
+                        const button = buttons[i];
+                        if (!/^start/.test(button.id) || /^stop/.test(button.id) || /^reset/.test(button.id)) {
+                            buttons[i].classList.remove('selected-button');
+                        }
                     }
 
                     event.target.classList.add('selected-button');

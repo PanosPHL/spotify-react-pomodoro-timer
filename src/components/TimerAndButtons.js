@@ -4,7 +4,7 @@ import TimerContext from '../contexts/TimerContext';
 const TimerAndButtons = () => {
     return (
         <TimerContext.Consumer>
-            {({ time, addMinute, subtractMinute }) => {
+            {({ time, timerMethods: { addMinute, subtractMinute } }) => {
                 const minutes = Math.floor(time / 60);
                 const seconds = time % 60;
                 return (
