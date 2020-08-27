@@ -32,6 +32,7 @@ class AppWithContext extends React.Component {
     }
 
     async componentDidMount() {
+        console.log(this.state.token);
         if (this.state.token) {
             return;
         }
@@ -70,13 +71,18 @@ class AppWithContext extends React.Component {
 
                 this.setState({ token: data.access_token });
             } catch (e) {
-                console.log(e);
-                this.setState({ errors: [...this.state.errors, e.error_description]});
+                window.location = 'http://localhost:3000';
             }
         }
     }
 
     startTimer = async () => {
+        const errLen = this.getErrLength();
+
+        if (this.state.started) {
+            return;
+        }
+
         if (this.state.token) {
             try {
                 const res = await fetch('https://api.spotify.com/v1/me/player/play', {
@@ -86,23 +92,33 @@ class AppWithContext extends React.Component {
                     }
                 });
 
-                const data = await res.json();
-
                 if (!res.ok) {
-                    throw data;
+                    throw await res.json();
                 }
+
             } catch (e) {
-                this.setState({ errors: [...this.state.errors, e.error.message]})
+                console.log(e);
+                this.setState({ errors: [...this.state.errors, e.message]})
             }
         }
 
-        this.setState({ started: true }, () => {
+        let errors;
+
+        if (this.state.errors.length > errLen) {
+            errors = this.state.errors;
+        } else {
+            errors = [];
+        }
+
+        this.setState({ started: true, errors }, () => {
             this.decrementTimer();
         });
 
     }
 
     stopTimer = async () => {
+        const errLen = this.getErrLength();
+
         if (this.state.token) {
             try {
                 const res = await fetch('https://api.spotify.com/v1/me/player/pause', {
@@ -116,12 +132,19 @@ class AppWithContext extends React.Component {
                 throw await res.json();
             }
             } catch (e) {
-                console.log(e.error.message);
                 this.setState({ errors: [...this.state.errors, e.error.message] });
             }
         }
 
-        this.setState({ started: false }, () => {
+        let errors;
+
+        if (this.state.errors.length > errLen) {
+            errors = this.state.errors;
+        } else {
+            errors = [];
+        }
+
+        this.setState({ started: false, errors }, () => {
             this.clearTimer();
         });
     }
@@ -139,19 +162,21 @@ class AppWithContext extends React.Component {
     }
 
     resetTimer = () => {
+        let errors = [];
+
         if (this.state.started) {
             return;
         }
 
         switch (this.state.timerType) {
             case 'pomodoro':
-                this.setState({ time: 1500 });
+                this.setState({ time: 1500, errors });
                 return;
             case 'short-break':
-                this.setState({ time: 300 });
+                this.setState({ time: 300, errors });
                 return;
             case 'long-break':
-                this.setState({ time: 600 });
+                this.setState({ time: 600, errors });
                 return;
             default: return;
         }
@@ -205,6 +230,10 @@ class AppWithContext extends React.Component {
         let url = URL.createObjectURL(file);
         let audio = new Audio(url);
         this.setState({ audio: { file: audio, updateAudio: this.updateAudio }});
+    }
+
+    getErrLength() {
+        return this.state.errors.length;
     }
 
     render() {

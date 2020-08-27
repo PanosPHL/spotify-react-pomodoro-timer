@@ -19,7 +19,7 @@ const Errors = () => {
                    );
                } else {
                    return (
-                   <div id='error-container'>
+                   <div id='error-container' className='hidden'>
                    </div>
                    );
                }
