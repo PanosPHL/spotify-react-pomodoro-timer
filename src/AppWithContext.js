@@ -43,7 +43,7 @@ class AppWithContext extends React.Component {
             const params = {
                 grant_type: 'authorization_code',
                 code: urlStr.split('?code=')[1],
-                redirect_uri: 'http://localhost:3000',
+                redirect_uri: process.env.REACT_APP_REDIRECT_URI,
                 client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
                 client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
             }
@@ -71,7 +71,7 @@ class AppWithContext extends React.Component {
 
                 this.setState({ token: data.access_token });
             } catch (e) {
-                window.location = 'http://localhost:3000';
+                window.location = process.env.REACT_APP_REDIRECT_URI;
             }
         }
     }
@@ -98,7 +98,7 @@ class AppWithContext extends React.Component {
 
             } catch (e) {
                 console.log(e);
-                this.setState({ errors: [...this.state.errors, e.message]})
+                this.setState({ errors: [...this.state.errors, e.error.message]})
             }
         }
 

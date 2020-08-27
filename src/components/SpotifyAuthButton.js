@@ -5,7 +5,7 @@ const scopes = process.env.REACT_APP_SPOTIFY_SCOPES
 const myClientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 
 const SpotifyAuthButton = () => {
-    const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=` + myClientId + (scopes ? '&scope=' + encodeURIComponent(scopes): "") + '&show_dialog=' + encodeURIComponent(true) + '&redirect_uri=' + encodeURIComponent('http://localhost:3000');
+    const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=` + myClientId + (scopes ? '&scope=' + encodeURIComponent(scopes): "") + '&show_dialog=' + encodeURIComponent(true) + '&redirect_uri=' + encodeURIComponent(process.env.REACT_APP_REDIRECT_URI);
 
     const handleClick = () => {
         window.location = url;
