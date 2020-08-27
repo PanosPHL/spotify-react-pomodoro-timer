@@ -4,7 +4,7 @@ import TimerContext from '../contexts/TimerContext';
 const BottomButtons = () => {
     return (
         <TimerContext.Consumer>
-            {({ timerMethods: { startTimer, stopTimer, resetTimer } }) => {
+            {({ timerMethods: {startTimer, stopTimer, resetTimer} }) => {
                 const handleClick = (event) => {
                     switch(event.target.id) {
                         case 'start-button':

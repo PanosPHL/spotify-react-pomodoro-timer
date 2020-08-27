@@ -3,11 +3,15 @@ import TimerAndButtons from './components/TimerAndButtons';
 import TopButtons from './components/TopButtons';
 import BottomButtons from './components/BottomButtons';
 import AudioUpload from './components/AudioUpload';
+import SpotifyAuthButton from './components/SpotifyAuthButton';
 
 function App() {
   return (
     <>
+    <div id='top-container'>
     <AudioUpload />
+    <SpotifyAuthButton />
+    </div>
     <div id='center-screen'>
       <TopButtons />
       <TimerAndButtons />

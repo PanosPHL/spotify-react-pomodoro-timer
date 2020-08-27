@@ -296,3 +296,31 @@ label:active {
 .no-events {
     pointer-events: none;
 }
+
+#top-container {
+    display: flex;
+}
+
+#spotify-log-in {
+    position: relative;
+    margin: auto 250px auto 0;
+    height: 60px;
+    width: 240px;
+    padding-right: 16px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+#spotify-text {
+margin-left: 16%;
+}
+
+#spotify-logo {
+    position: absolute;
+    left: 2%;
+    bottom: 12%;
+    height: 40px;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import TimerContext from './contexts/TimerContext';
 import AudioContext from './contexts/AudioContext';
+import SpotifyContext from './contexts/SpotifyContext';
 import App from './App';
 
 class AppWithContext extends React.Component {
@@ -23,21 +24,76 @@ class AppWithContext extends React.Component {
             audio: {
                 file: null,
                 updateAudio: this.updateAudio
-            }
+            },
+            token: null
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        if (this.state.token) {
+            return;
+        }
+
+        let urlStr = window.location.toString()
+
+        if (urlStr.includes('?code=')) {
+            const params = {
+                grant_type: 'authorization_code',
+                code: urlStr.split('?code=')[1],
+                redirect_uri: 'http://localhost:3000',
+                client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+                client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
+            }
+
+            let str = [];
+
+            for (let key in params) {
+                str.push(`${key}=${encodeURIComponent(params[key])}`);
+            }
+
+            const res = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: str.join('&')
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                this.setState({ token: data.access_token });
+            }
+
+        }
     }
 
-    startTimer = () => {
+    startTimer = async () => {
+        if (this.state.token) {
+            await fetch('https://api.spotify.com/v1/me/player/play', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${this.state.token}`
+                }
+            });
+        }
+
         this.setState({ started: true }, () => {
             this.decrementTimer();
         });
 
     }
 
-    stopTimer = () => {
+    stopTimer = async () => {
+        if (this.state.token) {
+            await fetch('https://api.spotify.com/v1/me/player/pause', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${this.state.token}`
+                }
+            });
+        }
+
         this.setState({ started: false }, () => {
             this.clearTimer();
         });
@@ -131,7 +187,9 @@ class AppWithContext extends React.Component {
         return (
             <TimerContext.Provider value={timeState}>
                 <AudioContext.Provider value={this.state.audio}>
+                    <SpotifyContext.Provider value={this.state.token}>
                     <App />
+                    </SpotifyContext.Provider>
                 </AudioContext.Provider>
             </TimerContext.Provider>
         )
