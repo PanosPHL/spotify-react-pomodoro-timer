@@ -3,6 +3,7 @@ import TimerContext from './contexts/TimerContext';
 import AudioContext from './contexts/AudioContext';
 import SpotifyContext from './contexts/SpotifyContext';
 import App from './App';
+import ErrorContext from './contexts/ErrorContext';
 
 class AppWithContext extends React.Component {
     constructor() {
@@ -25,7 +26,8 @@ class AppWithContext extends React.Component {
                 file: null,
                 updateAudio: this.updateAudio
             },
-            token: null
+            token: null,
+            errors: []
         }
     }
 
@@ -51,31 +53,47 @@ class AppWithContext extends React.Component {
                 str.push(`${key}=${encodeURIComponent(params[key])}`);
             }
 
-            const res = await fetch('https://accounts.spotify.com/api/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: str.join('&')
-            });
+            try {
+                const res = await fetch('https://accounts.spotify.com/api/token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: str.join('&')
+                });
 
-            const data = await res.json();
+                const data = await res.json();
 
-            if (res.ok) {
+                if (!res.ok) {
+                    throw data;
+                }
+
                 this.setState({ token: data.access_token });
+            } catch (e) {
+                console.log(e);
+                this.setState({ errors: [...this.state.errors, e.error_description]});
             }
-
         }
     }
 
     startTimer = async () => {
         if (this.state.token) {
-            await fetch('https://api.spotify.com/v1/me/player/play', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${this.state.token}`
+            try {
+                const res = await fetch('https://api.spotify.com/v1/me/player/play', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${this.state.token}`
+                    }
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw data;
                 }
-            });
+            } catch (e) {
+                this.setState({ errors: [...this.state.errors, e.error.message]})
+            }
         }
 
         this.setState({ started: true }, () => {
@@ -86,12 +104,21 @@ class AppWithContext extends React.Component {
 
     stopTimer = async () => {
         if (this.state.token) {
-            await fetch('https://api.spotify.com/v1/me/player/pause', {
+            try {
+                const res = await fetch('https://api.spotify.com/v1/me/player/pause', {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
                 }
             });
+
+            if (!res.ok) {
+                throw await res.json();
+            }
+            } catch (e) {
+                console.log(e.error.message);
+                this.setState({ errors: [...this.state.errors, e.error.message] });
+            }
         }
 
         this.setState({ started: false }, () => {
@@ -185,6 +212,7 @@ class AppWithContext extends React.Component {
         delete timeState.audio;
 
         return (
+            <ErrorContext.Provider value={this.state.errors}>
             <TimerContext.Provider value={timeState}>
                 <AudioContext.Provider value={this.state.audio}>
                     <SpotifyContext.Provider value={this.state.token}>
@@ -192,6 +220,7 @@ class AppWithContext extends React.Component {
                     </SpotifyContext.Provider>
                 </AudioContext.Provider>
             </TimerContext.Provider>
+            </ErrorContext.Provider>
         )
     }
 }
