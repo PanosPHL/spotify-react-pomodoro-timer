@@ -42,7 +42,7 @@ class AppWithContext extends React.Component {
             const params = {
                 grant_type: 'authorization_code',
                 code: urlStr.split('?code=')[1],
-                redirect_uri: process.REACT_APP_REDIRECT_URI,
+                redirect_uri: process.env.REACT_APP_REDIRECT_URI,
                 client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
                 client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
             }
@@ -54,6 +54,7 @@ class AppWithContext extends React.Component {
             }
 
             try {
+                console.log(str);
                 const res = await fetch('https://accounts.spotify.com/api/token', {
                     method: 'POST',
                     headers: {
