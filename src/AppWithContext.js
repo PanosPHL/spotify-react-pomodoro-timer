@@ -32,7 +32,6 @@ class AppWithContext extends React.Component {
     }
 
     async componentDidMount() {
-        console.log(this.state.token);
         if (this.state.token) {
             return;
         }
@@ -43,7 +42,7 @@ class AppWithContext extends React.Component {
             const params = {
                 grant_type: 'authorization_code',
                 code: urlStr.split('?code=')[1],
-                redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+                redirect_uri: process.REACT_APP_REDIRECT_URI,
                 client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
                 client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
             }
@@ -71,7 +70,9 @@ class AppWithContext extends React.Component {
 
                 this.setState({ token: data.access_token });
             } catch (e) {
-                window.location = process.env.REACT_APP_REDIRECT_URI;
+                console.log(process.env.REACT_APP_REDIRECT_URI);
+                console.log(e);
+                // window.location = 'http://localhost:3000'
             }
         }
     }

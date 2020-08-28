@@ -7,6 +7,15 @@ const TimerAndButtons = () => {
             {({ time, timerMethods: { addMinute, subtractMinute } }) => {
                 const minutes = Math.floor(time / 60);
                 const seconds = time % 60;
+
+                if (seconds < 10) {
+                    document.title = `Panos Timer (${minutes}:0${seconds})`;
+                } else if (minutes === 0 && seconds === 0) {
+                    document.title = `Panos Timer: Time's Up!`
+                } else {
+                    document.title = `Panos Timer (${minutes}:${seconds})`;
+                }
+
                 return (
                     <section id='timer-container'>
                         <div className="button minute-button" onClick={subtractMinute}><span id="subtract-minute">-</span></div>
