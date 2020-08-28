@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9ec8a758387933476006168c255757d2",
+    "revision": "bb64cb5eec6005650156a3f79ba6edde",
     "url": "/spotify-react-pomodoro-timer/index.html"
   },
   {
-    "revision": "0f7cbbe6ba567eabaf2f",
+    "revision": "00d51ccd11ab1c8a46b5",
     "url": "/spotify-react-pomodoro-timer/static/css/main.1bc4e05e.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/spotify-react-pomodoro-timer/static/js/2.26f738de.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0f7cbbe6ba567eabaf2f",
-    "url": "/spotify-react-pomodoro-timer/static/js/main.ddc716db.chunk.js"
+    "revision": "00d51ccd11ab1c8a46b5",
+    "url": "/spotify-react-pomodoro-timer/static/js/main.84a24192.chunk.js"
   },
   {
     "revision": "dd5394b915063e24e032",
