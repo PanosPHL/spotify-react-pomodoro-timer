@@ -71,9 +71,7 @@ class AppWithContext extends React.Component {
 
                 this.setState({ token: data.access_token });
             } catch (e) {
-                console.log(process.env.REACT_APP_REDIRECT_URI);
-                console.log(e);
-                // window.location = 'http://localhost:3000'
+                window.location = 'https://panosphl.github.io/spotify-react-pomodoro-timer';
             }
         }
     }
