@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/spotify-react-pomodoro-timer/static/css/main.1bc4e05e.chunk.css",
-    "main.js": "/spotify-react-pomodoro-timer/static/js/main.84a24192.chunk.js",
-    "main.js.map": "/spotify-react-pomodoro-timer/static/js/main.84a24192.chunk.js.map",
+    "main.js": "/spotify-react-pomodoro-timer/static/js/main.8a385916.chunk.js",
+    "main.js.map": "/spotify-react-pomodoro-timer/static/js/main.8a385916.chunk.js.map",
     "runtime-main.js": "/spotify-react-pomodoro-timer/static/js/runtime-main.8bb1a44d.js",
     "runtime-main.js.map": "/spotify-react-pomodoro-timer/static/js/runtime-main.8bb1a44d.js.map",
     "static/js/2.26f738de.chunk.js": "/spotify-react-pomodoro-timer/static/js/2.26f738de.chunk.js",
     "static/js/2.26f738de.chunk.js.map": "/spotify-react-pomodoro-timer/static/js/2.26f738de.chunk.js.map",
     "index.html": "/spotify-react-pomodoro-timer/index.html",
-    "precache-manifest.df9caeffcb4b095ea42a34a75b4e9cfb.js": "/spotify-react-pomodoro-timer/precache-manifest.df9caeffcb4b095ea42a34a75b4e9cfb.js",
+    "precache-manifest.2f969cb1397a87ee9afc9a7c8914eb52.js": "/spotify-react-pomodoro-timer/precache-manifest.2f969cb1397a87ee9afc9a7c8914eb52.js",
     "service-worker.js": "/spotify-react-pomodoro-timer/service-worker.js",
     "static/css/main.1bc4e05e.chunk.css.map": "/spotify-react-pomodoro-timer/static/css/main.1bc4e05e.chunk.css.map",
     "static/js/2.26f738de.chunk.js.LICENSE.txt": "/spotify-react-pomodoro-timer/static/js/2.26f738de.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.8bb1a44d.js",
     "static/js/2.26f738de.chunk.js",
     "static/css/main.1bc4e05e.chunk.css",
-    "static/js/main.84a24192.chunk.js"
+    "static/js/main.8a385916.chunk.js"
   ]
 }
