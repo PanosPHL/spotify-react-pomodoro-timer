@@ -54,7 +54,6 @@ class AppWithContext extends React.Component {
             }
 
             try {
-                console.log(str);
                 const res = await fetch('https://accounts.spotify.com/api/token', {
                     method: 'POST',
                     headers: {
@@ -83,7 +82,7 @@ class AppWithContext extends React.Component {
             return;
         }
 
-        if (this.state.token) {
+        if (this.state.token && this.state.timerType === 'pomodoro') {
             try {
                 const res = await fetch('https://api.spotify.com/v1/me/player/play', {
                     method: 'PUT',
@@ -119,7 +118,7 @@ class AppWithContext extends React.Component {
     stopTimer = async () => {
         const errLen = this.getErrLength();
 
-        if (this.state.token) {
+        if (this.state.token && this.state.timerType === 'pomodoro') {
             try {
                 const res = await fetch('https://api.spotify.com/v1/me/player/pause', {
                 method: 'PUT',
